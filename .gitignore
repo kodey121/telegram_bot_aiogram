@@ -1,0 +1,8 @@
+echo "*.db\nsettings.json\n__pycache__/\n.env" > .gitignore
+
+git init
+git add .
+git commit -m "Initial commit"
+
+git remote add origin https://github.com/kodey121/telegram_bot_aiogram.git
+git push -u origin main
