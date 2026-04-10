@@ -23,3 +23,6 @@ A Telegram bot built with [Aiogram 3.x](https://docs.aiogram.dev/). This bot all
    
 5. **Run the bot:**
    `python main.py`
+6, **you are ready to use it now **
+
+**`!note there is many updates coming soon`**
