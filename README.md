@@ -26,3 +26,5 @@ A Telegram bot built with [Aiogram 3.x](https://docs.aiogram.dev/). This bot all
 6, **you are ready to use it now **
 
 **`!note there is many updates coming soon`**
+
+# The the currently has both English and Arabic in the future it will be support full english and arabic.
