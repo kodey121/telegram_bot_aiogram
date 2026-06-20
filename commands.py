@@ -41,11 +41,11 @@ async def build_menu(msg: Message):
     
     button_data = MenuAction(action="open", parent_id="NULL").pack()
     
-    builder.button(text="📂 القائمة الرئيسية", callback_data=button_data)
-    builder.button(text="📩 مراسلة الدعم الفني", callback_data="support_state")
+    builder.button(text="📂 main folder", callback_data=button_data)
+    builder.button(text="📩 contact support", callback_data="support_state")
     builder.adjust(2,3)
-    await msg.reply(text="اختار خيار  من الأتي:", reply_markup=builder.as_markup())
-    
+    await msg.reply(text="choose from below:", reply_markup=builder.as_markup())
+
 
 
    

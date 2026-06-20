@@ -1,9 +1,6 @@
 import json
 import os 
 
-owner_id=os.getenv('OWNER_ID')
-OWNER_ID=owner_id
-
 def create_json():
     settings={
         "supprot_group":None

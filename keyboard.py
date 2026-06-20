@@ -1,13 +1,19 @@
-from aiogram import Router , F ,html
+from aiogram import Router , F 
 from aiogram.filters import Command,CommandStart , CommandObject
 from aiogram.types import Message , KeyboardButton ,CallbackQuery ,InlineKeyboardButton,ReplyKeyboardRemove
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
-from typing import Any
 from aiogram.utils.keyboard import InlineKeyboardBuilder , ReplyKeyboardBuilder
 import database 
 from aiogram.filters.callback_data import CallbackData
+import os
 import config
+from dotenv import load_dotenv
+
+load_dotenv()
+
+owner_id=os.getenv('OWNER_ID')
+RONWER_ID=int(owner_id)
 
 utils_router=Router()
 
@@ -45,6 +51,12 @@ async def handle_send_admin_list(call:CallbackQuery):
 
     await call.message.answer(text=(f"admins:\n{response_text}"))
     await call.answer()
+
+@utils_router.callback_query(MenuAction.filter(F.action== "back_to_main"))
+async def back_to_main_handle(call:CallbackQuery):
+    buidler=InlineKeyboardBuilder
+    mark_up=build_dynamic_menu(parent_id="NULL",user_id=call.from_user.id)
+    await call.message.edit_reply_markup(reply_markup=mark_up)
 
 @utils_router.callback_query(MenuAction.filter(F.action== "select_supp_group"))
 async def selecting_groups_handling(call:CallbackQuery,state:FSMContext):
@@ -186,6 +198,7 @@ async def upload_hundle(call:CallbackQuery,state:FSMContext,callback_data:MenuAc
     await call.message.answer(text="Please send the files")
     await state.set_state(upload_file.get_file_id)
 
+@utils_router.message(upload_file.get_file_id,F.photo)
 @utils_router.message(upload_file.get_file_id,F.document)
 async def getting_files(msg:Message,state:FSMContext):
 
@@ -292,10 +305,12 @@ def build_dynamic_menu(parent_id :str, user_id:str):
         controls.append(InlineKeyboardButton(text="🔙 رجوع", callback_data=MenuAction(action="open", parent_id=str(grandparent)).pack()))
         controls.append(InlineKeyboardButton(text="🗃️📲 ارسال الملفات المرفوعة", callback_data=MenuAction(action="send_file", parent_id=parent_id).pack()))
         controls.append(InlineKeyboardButton(text="🗃️📲 ارسال قائمة الملفات ", callback_data=MenuAction(action="send_flist", parent_id=parent_id).pack()))
+        if grandparent is not None:
+            controls.append(InlineKeyboardButton(text="الرجوع الى القائمة الرئيسية 🔙", callback_data=MenuAction(action="back_to_main", parent_id=parent_id).pack()))
     #admins
-    if str(user_id) in admin_list or user_id == config.OWNER_ID:
-
-        controls.append(InlineKeyboardButton(text="🤵📂 send admin list ", callback_data=MenuAction(action="send_admin_list", parent_id=parent_id).pack()))
+    if str(user_id) in admin_list or user_id == (RONWER_ID):
+        if is_root and parent_id :
+            controls.append(InlineKeyboardButton(text="🤵📂 send admin list ", callback_data=MenuAction(action="send_admin_list", parent_id=parent_id).pack()))
         controls.append(InlineKeyboardButton(text="➕ Add", callback_data=MenuAction(action="add", parent_id=parent_id).pack()))
 
         if not is_root:
@@ -303,11 +318,11 @@ def build_dynamic_menu(parent_id :str, user_id:str):
             controls.append(InlineKeyboardButton(text="⬆️ Upload", callback_data=MenuAction(action="upload", parent_id=parent_id).pack()))
             controls.append(InlineKeyboardButton(text="🗑️📂 Del file", callback_data=MenuAction(action="delete_f", parent_id=parent_id).pack()))
             
-    if is_root and user_id == config.OWNER_ID:
+    if is_root and user_id == (RONWER_ID):
         controls.append(InlineKeyboardButton(text="🤵 Add admin", callback_data=MenuAction(action="add_admin", parent_id=parent_id).pack()))
         controls.append(InlineKeyboardButton(text="👥💬 select support_group", callback_data=MenuAction(action="select_supp_group", parent_id=parent_id).pack()))
         controls.append(InlineKeyboardButton(text="🤵❌ remove admin", callback_data=MenuAction(action="remove_admin_list", parent_id=parent_id).pack()))
     #use builder.row to add the controls as thelast row 
     builder.row(*controls )
-    builder.adjust(2, 3)
+    builder.adjust(2)
     return builder.as_markup()
