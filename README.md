@@ -20,10 +20,10 @@ A Telegram bot built with [Aiogram 3.x](https://docs.aiogram.dev/). This bot all
    Create a `.env` file in the root directory and add your bot token and your id:
    `BOT_TOKEN=your_token_here`
     `OWNER_ID= YOU_ID_here`
-   
-5. **Run the bot:**
+
+4. **Run the bot:**
    `python main.py`
-6, **you are ready to use it now **
+5, **you are ready to use it now **
 
 **`!note there is many updates coming soon`**
 
