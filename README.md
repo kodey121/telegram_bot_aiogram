@@ -12,7 +12,7 @@ A Telegram bot built with [Aiogram 3.x](https://docs.aiogram.dev/). This bot all
   
 * **File Management:** Retrieve and send uploaded and delete files .
 
-* **admins and owner system** Add or remove admins for manageing purposes.
+* admins and owner system Add or remove admins for manageing purposes.
   ------
 ## Setup & Installation
 
