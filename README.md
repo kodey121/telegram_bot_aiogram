@@ -5,15 +5,15 @@ A Telegram bot built with [Aiogram 3.x](https://docs.aiogram.dev/). This bot all
 
 ## Features:
 
-* *Dynamic Menus:** Navigate through nested folders and menus.
+* **Dynamic Menus:** Navigate through nested folders and menus.
   
 * **Support Routing:** Users can send messages directly to admins group and the admin could reply from the group. !note you should choose the gorup after running the bot let the bot join the group that you want for support , type /group_id , go to the root menus and set te group from there.
   !note if you want to add an admin the needed admin user should type /myid and he will get his telegram id and you can add him to admin list from root menus.
   
 * **File Management:** Retrieve and send uploaded and delete files .
 
-* admins and owner system Add or remove admins for manageing purposes.
-  ------
+* **admins and owner system** Add or remove admins for manageing purposes.
+ 
 ## Setup & Installation
 
 1. **Clone the repository:**
